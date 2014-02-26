@@ -4,12 +4,17 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import com.freevariable.lancer.util.SampleRecorder;
+import com.freevariable.lancer.random.Poisson;
+
 /**
  * Unit test for simple App.
  */
 public class AppTest 
     extends TestCase
 {
+    public final static int ITERATIONS = 100000;
+    
     /**
      * Create the test case
      *
@@ -28,11 +33,34 @@ public class AppTest
         return new TestSuite( AppTest.class );
     }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    public void testPoissonMean() {
+        SampleRecorder sr = new SampleRecorder();
+        Poisson p = new Poisson(7.0, System.currentTimeMillis());
+        
+        for (int i = 0; i < ITERATIONS; i++) {
+            sr.record(p.nextDouble());
+        }
+        
+        assertEquals(p.expectedMean(), sr.meanEstimate(), 0.01);
+    }
+
+    public void testPoissonVariance() {
+        SampleRecorder sr = new SampleRecorder();
+        Poisson p = new Poisson(7.0, System.currentTimeMillis());
+        
+        for (int i = 0; i < ITERATIONS; i++) {
+            sr.record(p.nextDouble());
+        }
+        
+        assertEquals(p.expectedVariance(), sr.varianceEstimate(), 0.1);
+    }
+
+    public void testPoissonRepeatable() {
+        Poisson p1 = new Poisson(7.0, 12345l);
+        Poisson p2 = new Poisson(7.0, 12345l);
+        
+        for (int i = 0; i < ITERATIONS; i++) {
+            assertEquals(p1.nextInt(), p2.nextInt());
+        }
     }
 }
