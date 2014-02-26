@@ -55,4 +55,12 @@ public class Poisson {
     public double nextDouble() {
         return (double)nextInt();
     }
+    
+    public double expectedMean() {
+        return lambda;
+    }
+
+    public double expectedVariance() {
+        return lambda;
+    }
 }
