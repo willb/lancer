@@ -14,7 +14,7 @@
  * 
  */
 
-package com.freevariable.lancer;
+package com.freevariable.lancer.stat;
 
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
