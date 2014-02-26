@@ -39,7 +39,7 @@ public class Probability {
     
     public static double normal(double mean, double variance, double a) {
         // XXX: sure would be smarter to memoize these
-        return (new NormalDistribution(mean,java.Math.sqrt(variance))).cumulativeProbability(a);
+        return (new NormalDistribution(mean,Math.sqrt(variance))).cumulativeProbability(a);
     }
     
     public static double normalInverse(double a) {
@@ -48,6 +48,6 @@ public class Probability {
 
     public static double normalInverse(double mean, double variance, double a) {
         // XXX: sure would be smarter to memoize these
-        return (new NormalDistribution(mean,java.Math.sqrt(variance))).inverseCumulativeProbability(a);
+        return (new NormalDistribution(mean,Math.sqrt(variance))).inverseCumulativeProbability(a);
     }
 }
