@@ -17,6 +17,14 @@
 
 package com.freevariable.lancer.util;
 
+/**
+    A class to manage aggregate statistics for a stream of double values in constant space.
+    Uses the technique from <a href="http://dl.acm.org/citation.cfm?id=359153">"Updating mean and variance estimates: an improved method"</a>, by D. H. D. West (1979).
+
+@author William Benton <willb@acm.org>
+@since 0.0.1
+
+*/
 public final class SampleRecorder {
     private long count;
     private double meanEstimate;
@@ -54,6 +62,7 @@ public final class SampleRecorder {
         sd_dirty = false;
     }
     
+    /** Records the given sample. */
     public void record(double sample) {
         sd_dirty = true;
         
@@ -64,9 +73,16 @@ public final class SampleRecorder {
         if (sample<min) min = sample;
     }
     
+    /** Returns the count of samples recorded so far. */
     public long count() { return count; }
+    
+    /** Returns the estimated mean of samples recorded so far. */
     public double meanEstimate() { return meanEstimate; }
+    
+    /** Returns the estimated variance of samples recorded so far. */
     public double varianceEstimate() { return varianceEstimate; }
+    
+    /** Returns the estimated standard deviation of samples recorded so far; this is computed by need. */
     public double stdDevEstimate() { 
         if (sd_dirty) {
             stdDevEstimate = Math.sqrt(varianceEstimate);
@@ -74,6 +90,10 @@ public final class SampleRecorder {
         }
         return stdDevEstimate; 
     }
+    
+    /** Returns the largest sample recorded so far. */
     public double max() { return max; }
+
+    /** Returns the smallest sample recorded so far. */
     public double min() { return min; }
 }
