@@ -13,7 +13,7 @@ import com.freevariable.lancer.random.Poisson;
 public class AppTest 
     extends TestCase
 {
-    public final static int ITERATIONS = 100000;
+    public final static int ITERATIONS = 10000000;
     
     /**
      * Create the test case
@@ -52,7 +52,7 @@ public class AppTest
             sr.record(p.nextDouble());
         }
         
-        assertEquals(p.expectedVariance(), sr.varianceEstimate(), 0.1);
+        assertEquals(p.expectedVariance(), sr.varianceEstimate(), 0.06);
     }
 
     public void testPoissonMeanAndVariance() {
