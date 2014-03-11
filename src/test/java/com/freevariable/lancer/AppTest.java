@@ -41,7 +41,7 @@ public class AppTest
             sr.record(p.nextDouble());
         }
         
-        assertEquals(p.expectedMean(), sr.meanEstimate(), 0.01);
+        assertEquals(p.expectedMean(), sr.meanEstimate(), 0.1);
     }
 
     public void testPoissonVariance() {
@@ -53,6 +53,17 @@ public class AppTest
         }
         
         assertEquals(p.expectedVariance(), sr.varianceEstimate(), 0.1);
+    }
+
+    public void testPoissonMeanAndVariance() {
+        SampleRecorder sr = new SampleRecorder();
+        Poisson p = new Poisson(7.0, System.currentTimeMillis());
+        
+        for (int i = 0; i < ITERATIONS; i++) {
+            sr.record(p.nextDouble());
+        }
+        
+        assertEquals(sr.meanEstimate(), sr.varianceEstimate(), 0.1);
     }
 
     public void testPoissonRepeatable() {
